@@ -10,6 +10,7 @@ defmodule HdPlusUssd.Application do
     children = [
       # Starts a worker by calling: HdPlusUssd.Worker.start_link(arg)
       # {HdPlusUssd.Worker, arg}
+      {Plug.Cowboy, scheme: :http, plug: HdPlusUssd, options: [port: 4002]}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

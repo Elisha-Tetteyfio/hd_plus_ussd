@@ -24,3 +24,5 @@ hd_plus_ussd-*.tar
 
 # Temporary files, for example, from tests.
 /tmp/
+
+.env

@@ -2,17 +2,14 @@ defmodule HdPlusUssd do
   @moduledoc """
   Documentation for `HdPlusUssd`.
   """
+  use Plug.Router
 
-  @doc """
-  Hello world.
+  plug :match
+  plug :dispatch
 
-  ## Examples
-
-      iex> HdPlusUssd.hello()
-      :world
-
-  """
-  def hello do
-    :world
+  get "/" do
+    conn
+    |> put_resp_header("content-type", "application/json")
+    |> send_resp(200, Poison.encode!(%{message: "Hello world"}))
   end
 end
