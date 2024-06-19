@@ -2,6 +2,7 @@ defmodule HdPlusUssd.Application do
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications
   @moduledoc false
+alias HdPlusUssd.UssdSession
 
   use Application
 
@@ -10,7 +11,8 @@ defmodule HdPlusUssd.Application do
     children = [
       # Starts a worker by calling: HdPlusUssd.Worker.start_link(arg)
       # {HdPlusUssd.Worker, arg}
-      {Plug.Cowboy, scheme: :http, plug: HdPlusUssd, options: [port: 4002]}
+      {Plug.Cowboy, scheme: :http, plug: HdPlusUssd, options: [port: 4002]},
+      UssdSession
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
