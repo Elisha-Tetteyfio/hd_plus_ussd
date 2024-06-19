@@ -10,26 +10,30 @@ defmodule HdPlusUssd.Menu.MainMenu do
         UssdSession.create_session_table(body["msisdn"])
         {:ok, Page.MainMenu.request_page(body)}
       "1" ->
-        {:ok, table} = UssdSession.get_session_table(body["msisdn"])
-        select_menu(body, table)
+        select_menu(body)
       _ ->
         {:error, %{msg_type: "2", ussd_body: "End"}}
     end
   end
 
-  defp select_menu(body, table) do
-    case table[:menu] do
-      :main_menu ->
-        handle_response(body)
-      :activate_device ->
-        case ActivateDevice.select_page(body) do
-          {:ok, response} ->
-            {:ok, response}
+  defp select_menu(body) do
+    case UssdSession.get_session_table(body["msisdn"]) do
+      {:ok, session_data} ->
+        case session_data[:menu] do
+          :main_menu ->
+            handle_response(body)
+          :activate_device ->
+            case ActivateDevice.select_page(body) do
+              {:ok, response} ->
+                {:ok, response}
+              _ ->
+                {:error}
+            end
           _ ->
-            {:error}
+            {:error, }
         end
       _ ->
-        {:error, }
+        {:error, "Something went wrong. Try again later."}
     end
   end
 

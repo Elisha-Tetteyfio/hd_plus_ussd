@@ -27,8 +27,11 @@ defmodule HdPlusUssd do
     case Menu.MainMenu.process_request(parsed_body) do
       {:ok, response} ->
         send_response(conn, 200, Poison.encode!(Map.merge(parsed_body, response)))
+      {:error, reason} ->
+        error_body = %{"msg_type" => "2", "ussd_body" => reason}
+        send_response(conn, 200, Poison.encode!(Map.merge(parsed_body, error_body)))
       _ ->
-        send_response(conn, 200, Poison.encode!(Map.merge(parsed_body, %{ussd_body: "System currently down.", msg_type: "2"})))
+        send_response(conn, 200, Poison.encode!(Map.merge(parsed_body, %{ussd_body: "Service currently unavailable.", msg_type: "2"})))
     end
   end
 end
