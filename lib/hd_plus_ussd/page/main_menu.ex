@@ -5,7 +5,7 @@ defmodule HdPlusUssd.Page.MainMenu do
     %{"ussd_body" => display_message(), "msg_type" => "1"}
   end
 
-  def display_message do
+  defp display_message do
     """
     WELCOME TO HD+
 
@@ -17,7 +17,7 @@ defmodule HdPlusUssd.Page.MainMenu do
     """
   end
 
-  def update_trackers(mobile_number) do
-    UssdSession.update_session_table(mobile_number, :menu, "main_menul")
+  defp update_trackers(mobile_number) do
+    UssdSession.update_session_table(mobile_number, :menu, :main_menu)
   end
 end
