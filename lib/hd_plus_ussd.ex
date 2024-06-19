@@ -28,7 +28,7 @@ defmodule HdPlusUssd do
       {:ok, response} ->
         send_response(conn, 200, Poison.encode!(Map.merge(parsed_body, response)))
       _ ->
-        send_response(conn, 200, Poison.encode!(Map.merge(parsed_body, %{ussd_body: "System down", msg_type: "2"})))
+        send_response(conn, 200, Poison.encode!(Map.merge(parsed_body, %{ussd_body: "System currently down.", msg_type: "2"})))
     end
   end
 end
