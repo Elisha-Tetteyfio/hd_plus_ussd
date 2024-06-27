@@ -30,6 +30,10 @@ defmodule HdPlusUssd.UssdSession do
     GenServer.call(__MODULE__, {:delete_session_table, mobile_number})
   end
 
+  def get_session_data(mobile_number, key) do
+    GenServer.call(__MODULE__, {:get_session_data, mobile_number, key})
+  end
+
   def handle_call({:create_session_table, mobile_number}, _from, state) do
     table_name = String.to_atom(mobile_number)
 
@@ -78,6 +82,17 @@ defmodule HdPlusUssd.UssdSession do
       _ ->
         :ets.delete(table_name)
         {:reply, :ok, state}
+    end
+  end
+
+  def handle_call({:get_session_data, mobile_number, key}, _from, state) do
+    table_name = String.to_atom(mobile_number)
+
+    case :ets.lookup(table_name, key) do
+      [] ->
+        {:reply, {:error, nil}, state}
+      [{^key, value}] ->
+        {:reply, {:ok, value}, state}
     end
   end
 
