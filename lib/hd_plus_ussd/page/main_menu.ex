@@ -10,10 +10,7 @@ defmodule HdPlusUssd.Page.MainMenu do
     WELCOME TO HD+
 
     1. Activate HD+ Device
-    2. Buy HD+ Subscription
-    3. Check Status
-    4. Customer Service
-    5. HD+ Super Dealer
+    2. Customer Service
     """
   end
 

@@ -42,8 +42,14 @@ defmodule HdPlusUssd.Menu.MainMenu do
     case body["ussd_body"] do
       "1" ->
         {:ok, EnterNumber.request_page(body)}
+      "2" ->
+        contact_info()
       _ ->
         {:ok, Page.MainMenu.request_page(body)}
     end
+  end
+
+  defp contact_info do
+    {:ok, %{"ussd_body" => "Email: Contact@hdplus.com", "msg_type" => "2"}}
   end
 end
