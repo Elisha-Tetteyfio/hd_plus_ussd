@@ -1,4 +1,5 @@
 defmodule HdPlusUssd.Menu.MainMenu do
+  alias HdPlusUssd.Menu.TestPages
   alias HdPlusUssd.Page.ActivateDevice.EnterNumber
   alias HdPlusUssd.Menu.ActivateDevice
   alias HdPlusUssd.UssdSession
@@ -30,6 +31,8 @@ defmodule HdPlusUssd.Menu.MainMenu do
               _ ->
                 {:error}
             end
+          :test_pages ->
+            TestPages.select_page(body)
           _ ->
             {:error, }
         end
@@ -43,6 +46,8 @@ defmodule HdPlusUssd.Menu.MainMenu do
       "1" ->
         {:ok, EnterNumber.request_page(body)}
       "2" ->
+        {:ok, Page.TestPages.FirstPage.request_page(body)}
+      "3" ->
         contact_info()
       _ ->
         {:ok, Page.MainMenu.request_page(body)}

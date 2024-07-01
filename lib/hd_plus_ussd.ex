@@ -14,12 +14,6 @@ defmodule HdPlusUssd do
     |> send_resp(response_status, response)
   end
 
-  get "/" do
-    conn
-    |> put_resp_header("content-type", "application/json")
-    |> send_resp(200, Poison.encode!(%{message: "Hello world"}))
-  end
-
   post "/" do
     {:ok, body, conn} = read_body(conn)
     {:ok, parsed_body} = Poison.decode(body)

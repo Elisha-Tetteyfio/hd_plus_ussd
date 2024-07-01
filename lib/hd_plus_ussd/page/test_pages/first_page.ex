@@ -1,4 +1,4 @@
-defmodule HdPlusUssd.Page.MainMenu do
+defmodule HdPlusUssd.Page.TestPages.FirstPage do
   alias HdPlusUssd.UssdSession
   def request_page(body) do
     update_trackers(body["msisdn"])
@@ -7,15 +7,15 @@ defmodule HdPlusUssd.Page.MainMenu do
 
   defp display_message do
     """
-    WELCOME TO HD+
+    This is the first page.
 
-    1. Activate HD+ Device
-    2. Test more pages
-    3. Customer Service
+    1. Continue
+    00. Back
     """
   end
 
   defp update_trackers(mobile_number) do
-    UssdSession.update_session_table(mobile_number, :menu, :main_menu)
+    UssdSession.update_session_table(mobile_number, :menu, :test_pages)
+    UssdSession.update_session_table(mobile_number, :page, :first_page)
   end
 end
